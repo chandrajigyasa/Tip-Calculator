@@ -1,0 +1,163 @@
+<html>
+
+<head>
+	<style>
+		body {
+			background-color: #696969;
+			font-family: 'Raleway', sans-serif;
+		}
+		
+		.container {
+			width: 350px;
+			height: 500px;
+			background-color: #fff;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translateX(-50%) translateY(-50%);
+			border-radius: 20px;
+		}
+		
+		h1 {
+			position: absolute;
+			left: 50%;
+			top: -60px;
+			width: 300px;
+			transform: translateX(-50%);
+			background-color: #FF851B;
+			color: #fff;
+			font-weight: 100;
+			border-top-left-radius: 20px;
+			border-top-right-radius: 20px;
+			font-size: 18px;
+			text-align: center;
+			padding: 10px;
+		}
+		
+		.wrapper {
+			padding: 20px;
+		}
+		
+		input,
+		select {
+			width: 80%;
+			border: none;
+			border-bottom: 1px solid #0074D9;
+			padding: 10px;
+		}
+		
+		input:focus,
+		select:focus {
+			border: 1px solid #0074D9;
+			outline: none;
+		}
+		
+		select {
+			width: 88% !important;
+		}
+		
+		button {
+			margin: 20px auto;
+			width: 150px;
+			height: 50px;
+			background-color: #39CCCC;
+			color: #fff;
+			font-size: 16px;
+			border: none;
+			border-radius: 5px;
+		}
+		
+		.tip {
+			text-align: center;
+			font-size: 18px;
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>TIP CALCULATOR</h1>
+		<div class="wrapper">
+			
+<p>Bill</p>
+
+			<input type="number"
+				id="billAmount"
+				placeholder="Bill Amount"> 
+
+			<p style="color:red;" id="billErr"></p>
+<p>Tip %</p>
+
+		<input type="number"
+				id="tipAmount"
+				placeholder="Tip Amount"> 	
+
+			<p style="color:red;" id="tipErr"></p>
+<p>Number of people</p>
+
+			<input type="number"
+				id="people"
+				placeholder="Number of people">
+				<p style="color:red;" id="personErr"></p>
+			<button id="calculate">Calculate Tip</button>
+			
+			
+			<br>
+			<p><b>Tip per person:</b> <span id="tip1"></span></p>
+			<p><b>Total per person:</b> <span id="total1"></span></p>
+			
+		</div>
+
+		
+	</div>
+	<script>
+		window.onload = () => 
+            {
+                /*calling a function calculateTip which
+                 will calculate the tip for the bill.*/
+                document.querySelector('#calculate').onclick = 
+                calculateTip;
+            }
+
+		function calculateTip() {
+			var bill = Number(document.getElementById('billAmount').value);
+			var tip = Number(document.getElementById('tipAmount').value);
+			var person = Number(document.getElementById('people').value);
+
+		    message = document.getElementById("billErr");
+			message = document.getElementById("tipErr");
+			message = document.getElementById("personErr");
+			
+		    message.innerHTML = "";
+			
+			var tipPerPerson, totalAmount, totalTip, totalBillPerPerson;
+			
+			var totalTip = (bill * tip)/100;
+			var tipPerPerson = (totalTip/person);
+			
+			var totalAmount = bill + totalTip;
+			
+			var totalBillPerPerson = ((bill/person)+tipPerPerson);
+			
+			document.getElementById("tip1").innerHTML ="₹ " +Number(tipPerPerson).toFixed(2);
+			document.getElementById("total1").innerHTML = "₹ " +Number(totalBillPerPerson).toFixed(2);
+			
+			try { 
+				
+				if(bill < 1)   throw "Bill Amount";
+				if(tip<1) throw "Tip Amount";
+				if(person<1) throw "Person";
+			}
+		  catch(err) {
+			message.innerHTML = "Please enter valid " + err;
+		  }
+		  
+		}	
+		
+		
+		
+	</script>
+</body>
+
+</html>
